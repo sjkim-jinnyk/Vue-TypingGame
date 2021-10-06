@@ -6,17 +6,23 @@
 </template>
 
 <script>
+//import getWords from '../api/indexApi.js';
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      word : 'Hello',
+      word : 'hello',
       inputText : '',
       score : 0,
+      wordArray : [],
+      index: null,
     }
   },
   methods: {
     matchText() {
       if(this.word.toLowerCase()===this.inputText.toLowerCase()) {
+        this.wordCreate();
         this.score+=1;
         this.$emit('scorePlus', this.score);
         this.clearText();
@@ -24,8 +30,17 @@ export default {
     },
     clearText() {
       this.inputText = '';
+    },
+    wordCreate() {
+      this.index = Math.floor(Math.random() * this.wordArray.length);
+      this.word = this.wordArray[this.index];
+  
     }   
   },
+  created() {
+    axios.get('https://random-word-api.herokuapp.com/word?number=100')
+      .then(response => this.wordArray = response.data)
+  }
 
 }
 </script>
