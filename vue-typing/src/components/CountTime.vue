@@ -6,12 +6,12 @@
         </span>
         
         <span class="countTotal"> 
-            획득 점수 : <span class="total">{{ propscore }}</span>점
+            획득 점수 : <span class="total">{{ scores }}</span>점
         </span>
     </div>
     <div class="startBtn">
-        <button class="btn" v-on:click="gameStart" :class="{gameSet: status===true}">
-            {{ startText }}
+        <button class="btn" v-on:click="startClick" :class="{gameSet:isPlaying===true}">
+            {{ gameText }}
         </button>
     </div>
   </div>
@@ -19,30 +19,50 @@
 
 <script>
 export default {
-  data() {
-    return {
-      time: 10,
-      timeInterval: null,
-      status: false,
-      startText: '게임 시작',
+  // data() {
+  //   return {
+  //     time: 10,
+  //     timeInterval: null,
+  //     isPlaying: false,
+  //     startText: '게임 시작',
+  //     score: 0,
+  //   }
+  // },
+  // props: ['propscore'],
+  computed: {
+    scores() {
+      return this.$store.state.score;
+    },
+    time() {
+      return this.$store.state.time;
+    },
+    gameText() {
+      return this.$store.state.startText;
+    },
+    isPlaying() {
+      return this.$store.state.status;
     }
   },
-  props: ['propscore'],
   methods: {
-    gameStart() {
-      this.status = true;
-      this.startText = '게임 중';
-      this.timeInterval = setInterval(()=>{
-        this.time--;
-        if(this.time===0) {
-            clearInterval(this.timeInterval);
-            this.time = 10;
-            this.status = false;
-            this.startText = '게임 시작';
-        }
-      },1000);
-      
+    startClick() {
+      this.$store.commit('gameStart');
+      this.$store.commit('inputBox');
     },
+    // gameStart() {
+    //   this.isPlaying = true;
+    //   this.$emit('startBtnClick', this.score);
+    //   this.startText = '게임 중';
+    //   this.timeInterval = setInterval(()=>{
+    //     this.time--;
+    //     if(this.time===0) {
+    //         clearInterval(this.timeInterval);
+    //         this.time = 10;
+    //         this.isPlaying = false;
+    //         this.startText = '게임 시작';
+    //     }
+    //   },1000);
+      
+    // },
   },
 }
 </script>
