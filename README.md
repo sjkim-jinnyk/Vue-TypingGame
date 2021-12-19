@@ -20,15 +20,19 @@
 
 ## 3. 프로젝트 구조
 ```bash
-  └─ aaa
-      │  bbb
-      │  bbb
-      │  
-      ├─bbb
-      │  │  bbb.py
-      │  │  bbb.py
-...중략...
+├── public
+│   ├── favicon.ico
+│   └── index.html
+└── src
+    ├── App.vue
+    ├── assets
+    │   └── logo.png
+    ├── components
+    │   ├── CountTime.vue
+    │   ├── TypingFooter.vue
+    │   ├── TypingHeader.vue
+    │   └── TypingText.vue
+    ├── main.js
+    └── store
+        └── store.js
 ```
-
-## 4. 개발하며 느낀점
-- 
